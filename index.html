@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Katalóg kníh – knižnica</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+  <script src="catalog.js" defer></script>
+</head>
+<body>
+  <main class="catalog-main">
+    <header class="page-heading">
+      <h1>Katalóg kníh</h1>
+      <p>Zoznam kníh v knižnici.</p>
+    </header>
+
+    <section class="catalog-card" aria-labelledby="books-title">
+      <h2 id="books-title">Zoznam kníh</h2>
+      <p id="list-message" class="message error" role="alert"></p>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Názov</th>
+              <th scope="col">Autor</th>
+              <th scope="col">Rok</th>
+              <th scope="col">Cena (€)</th>
+            </tr>
+          </thead>
+          <tbody id="books-list">
+            <tr><td class="empty" colspan="4">Načítavam knihy…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
