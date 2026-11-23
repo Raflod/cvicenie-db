@@ -1,0 +1,14 @@
+{
+  "name": "kniznica",
+  "version": "1.0.0",
+  "description": "Knižnica – Node.js/Express + MySQL (cvičenia Databázy a internet)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "express": "^4.21.2",
+    "mysql2": "^3.11.0"
+  }
+}
