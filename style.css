@@ -173,6 +173,21 @@ tr:nth-child(even) {
   border-radius: 6px;
 }
 
+.filter-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 15px 0;
+}
+
+select {
+  min-height: 40px;
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  font: inherit;
+}
+
 .book-actions {
   display: flex;
   flex-wrap: wrap;

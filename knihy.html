@@ -10,6 +10,7 @@
 </head>
 <body>
   <main>
+    <p id="prihlasenyInfo"></p>
     <h1>Moja knižnica</h1>
     <p>Pridajte knihu do databázy alebo si pozrite zoznam kníh.</p>
 
@@ -33,6 +34,26 @@
 
     <h2>Zoznam kníh</h2>
     <p id="chyba" class="message error" role="alert"></p>
+
+    <div id="filterPanel" class="filter-panel">
+      <input id="hladatInput" type="text" placeholder="Hľadať názov alebo autora..." aria-label="Hľadať názov alebo autora">
+
+      <select id="zoraditSelect" aria-label="Zoradiť podľa">
+        <option value="id">Zoradiť podľa: ID</option>
+        <option value="nazov">Názov</option>
+        <option value="autor">Autor</option>
+        <option value="rok">Rok vydania</option>
+        <option value="cena">Cena</option>
+      </select>
+
+      <select id="smerSelect" aria-label="Smer zoradenia">
+        <option value="ASC">Vzostupne (ASC)</option>
+        <option value="DESC">Zostupne (DESC)</option>
+      </select>
+
+      <button id="resetFilterBtn" type="button">Zrušiť filter</button>
+    </div>
+
     <div class="table-container">
       <table>
         <thead>

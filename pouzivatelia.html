@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Správa používateľov</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+  <script src="pouzivatelia.js" defer></script>
+</head>
+<body>
+  <main>
+    <h1>Správa používateľov</h1>
+
+    <form id="registraciaForm">
+      <label for="meno">Meno a priezvisko</label>
+      <input id="meno" type="text" placeholder="Meno a priezvisko" maxlength="100" required>
+
+      <label for="email">E-mail</label>
+      <input id="email" type="email" placeholder="E-mail" maxlength="150" required>
+
+      <label for="heslo">Heslo</label>
+      <input id="heslo" type="password" minlength="6" placeholder="Heslo (min. 6 znakov)" required>
+
+      <button type="submit">Registrovať používateľa</button>
+    </form>
+
+    <p id="sprava" class="message" role="status" aria-live="polite"></p>
+
+    <h2>Zoznam zaregistrovaných používateľov</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Meno</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Akcia</th>
+          </tr>
+        </thead>
+        <tbody id="zoznamPouzivatelov">
+          <tr><td class="empty" colspan="4">Načítavam používateľov…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>

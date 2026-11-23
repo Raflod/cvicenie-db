@@ -14,17 +14,29 @@ async function textChyby(odpoved) {
   return text || `Chyba servera (${odpoved.status})`;
 }
 
+let poslednaPoziadavka = 0;
+
 async function nacitajKnihy() {
-  chyba.textContent = "";
-  zoznamKnih.replaceChildren();
+  const cisloPoziadavky = ++poslednaPoziadavka;
+
+  const hladat = document.getElementById("hladatInput").value;
+  const zoradit = document.getElementById("zoraditSelect").value;
+  const smer = document.getElementById("smerSelect").value;
+  const params = new URLSearchParams({ hladat, zoradit, smer });
 
   try {
-    const odpoved = await fetch("/api/knihy");
+    const odpoved = await fetch("/api/knihy?" + params.toString());
     if (!odpoved.ok) {
       throw new Error(await textChyby(odpoved));
     }
 
     const knihy = await odpoved.json();
+
+    // Pri rychlom pisani do vyhladavania vykreslime iba najnovsiu odpoved
+    if (cisloPoziadavky !== poslednaPoziadavka) return;
+    chyba.textContent = "";
+    zoznamKnih.replaceChildren();
+
     if (!Array.isArray(knihy)) {
       throw new Error("Server vrátil neočakávaný formát údajov.");
     }
@@ -78,6 +90,8 @@ async function nacitajKnihy() {
       zoznamKnih.append(riadok);
     }
   } catch (error) {
+    if (cisloPoziadavky !== poslednaPoziadavka) return;
+    zoznamKnih.replaceChildren();
     chyba.textContent = `Knihy sa nepodarilo načítať: ${error.message}`;
     const riadok = document.createElement("tr");
     const bunka = document.createElement("td");
@@ -242,4 +256,34 @@ formular.addEventListener("submit", async udalost => {
   }
 });
 
+// Reakcia na zmenu filtra alebo zoradenia
+document.getElementById("hladatInput").addEventListener("input", nacitajKnihy);
+document.getElementById("zoraditSelect").addEventListener("change", nacitajKnihy);
+document.getElementById("smerSelect").addEventListener("change", nacitajKnihy);
+
+document.getElementById("resetFilterBtn").addEventListener("click", () => {
+  document.getElementById("hladatInput").value = "";
+  document.getElementById("zoraditSelect").value = "id";
+  document.getElementById("smerSelect").value = "ASC";
+  nacitajKnihy();
+});
+
+// Bonus: meno prihlaseneho pouzivatela zo sessionStorage
+function zobrazPrihlaseneho() {
+  const info = document.getElementById("prihlasenyInfo");
+  const ulozeny = sessionStorage.getItem("prihlasenyPouzivatel");
+
+  if (ulozeny) {
+    const pouzivatel = JSON.parse(ulozeny);
+    info.textContent = `Prihlásený používateľ: ${pouzivatel.meno} (${pouzivatel.email})`;
+  } else {
+    info.textContent = "Nie ste prihlásený. ";
+    const odkaz = document.createElement("a");
+    odkaz.href = "prihlasenie.html";
+    odkaz.textContent = "Prihlásiť sa";
+    info.append(odkaz);
+  }
+}
+
+zobrazPrihlaseneho();
 nacitajKnihy();
